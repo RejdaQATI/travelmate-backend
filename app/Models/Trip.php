@@ -16,7 +16,9 @@ class Trip extends Model
         'pack_type', 
         'destination', 
         'duration',
-        'city_id'
+        'city_id',
+        'activities',
+        'included'
         ];
 
     public function tripDates()

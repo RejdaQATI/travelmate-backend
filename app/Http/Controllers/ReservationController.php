@@ -14,28 +14,23 @@ class ReservationController extends Controller
      */
     public function userReservations()
     {
-        $reservations = Reservation::where('user_id', auth()->id())->get();
-
+        $reservations = Reservation::with('tripDate.trip')->where('user_id', auth()->id())->get();
+    
         return response()->json([
             'reservations' => $reservations
         ]);
     }
+    
 
-    public function allReservations()
-    {
-        $user = Auth::user();
 
-        if (!$user->isAdmin()) {
-            return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
-        }
-
-        // Récupérer toutes les réservations
-        $reservations = Reservation::all();
-
-        return response()->json([
-            'reservations' => $reservations
-        ]);
+public function allReservations() {
+    if (Auth::user()->isAdmin()) {
+        $reservations = Reservation::with('tripDate.trip', 'user')->get();
+        return response()->json(['reservations' => $reservations]);
     }
+    return response()->json(['error' => 'Unauthorized'], 403);
+}
+
     /**
      * Faire une nouvelle réservation (accessible à tous les utilisateurs)
      */
@@ -88,22 +83,26 @@ class ReservationController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $user = Auth::user();
-
+    
+        // Vérifier si l'utilisateur est administrateur
         if (!$user->isAdmin()) {
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
-
+    
         // Valider les données de la requête
         $validatedData = $request->validate([
-            'status' => 'required|in:confirmed,cancelled,pending',
+            'status' => 'required|in:confirmed,cancelled,pending',  // Statut requis
+            'payment_status' => 'nullable|in:pending,paid,failed',   // Statut de paiement facultatif
         ]);
-
-        // Mettre à jour le statut de la réservation
+    
+        // Trouver la réservation et mettre à jour les champs validés
         $reservation = Reservation::findOrFail($id);
-        $reservation->update(['status' => $validatedData['status']]);
-
+        $reservation->update($validatedData);
+    
         return response()->json([
-            'reservation' => $reservation
+            'reservation' => $reservation,
+            'message' => 'La réservation a été mise à jour avec succès'
         ]);
     }
+    
 }

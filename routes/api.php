@@ -13,7 +13,8 @@ Route::get('/cities/{id}', [CityController::class, 'show']);    // Détails d'un
 // Routes publiques (authentification)
 Route::post('/register', [AuthController::class, 'register']); // Inscription
 Route::post('/login', [AuthController::class, 'login']);       // Connexion
-Route::get('/trips', [TripController::class, 'index']);      
+Route::get('/trips', [TripController::class, 'index']); 
+Route::get('/trips/dates/{id}', [TripDateController::class, 'show']); // Récupérer les détails d'une période de voyage spécifique
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Déconnexion
 Route::get('/trips/{id}', [TripController::class, 'show']);       // Voir un voyage spécifique
 Route::get('/trips/{tripId}/dates', [TripDateController::class, 'index']); // Lister les périodes d'un voyage
@@ -55,6 +56,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/trips/dates/{id}', [TripDateController::class, 'destroy']); // Supprimer une période de voyage
 
     // Gestion des réservations (admin)
-    Route::put('/reservations/{id}/status', [ReservationController::class, 'updateStatus']); // Confirmer ou annuler une réservation
+    Route::put('/reservations/{id}', [ReservationController::class, 'updateStatus']);
+    // Confirmer ou annuler une réservation
     Route::get('/reservations', [ReservationController::class, 'allReservations']);
 });

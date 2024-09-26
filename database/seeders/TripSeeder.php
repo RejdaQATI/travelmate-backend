@@ -163,7 +163,7 @@ class TripSeeder extends Seeder
                 'included' => 'Transport, Hébergement, Guide'
             ],
             [
-                'title' => 'Maldives plage de rêve',
+                'title' => 'Maldives Plage de Rêve',
                 'description' => 'Découvrez les plages paradisiaques des Maldives, avec leurs eaux cristallines et sable blanc.',
                 'pack_type' => 'standard',
                 'destination' => 'Maldives',
@@ -174,7 +174,7 @@ class TripSeeder extends Seeder
                 'included' => 'Transport, Hébergement, Activités'
             ],
             [
-                'title' => 'Maldives expérience luxe',
+                'title' => 'Maldives Expérience Luxe',
                 'description' => 'Profitez d\'un séjour de luxe aux Maldives, avec des villas sur pilotis et des services exclusifs.',
                 'pack_type' => 'premium',
                 'destination' => 'Maldives',

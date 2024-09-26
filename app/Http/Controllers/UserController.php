@@ -14,10 +14,14 @@ class UserController extends Controller
      */
     public function showProfile()
     {
+        $user = auth()->user();
+    
         return response()->json([
-            'user' => auth()->user()
+            'user' => $user,
+            'isAdmin' => $user->isAdmin()  
         ]);
     }
+    
 
     /**
      * Mettre à jour le profil de l'utilisateur connecté (accessible à tous les utilisateurs authentifiés)

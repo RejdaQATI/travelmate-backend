@@ -52,15 +52,13 @@ class TripDateController extends Controller
     /**
      * Voir les détails d'une période spécifique (accessible à tous les utilisateurs)
      */
+
     public function show($id)
     {
-        $tripDate = TripDate::findOrFail($id);
-
-        return response()->json([
-            'trip_date' => $tripDate
-        ]);
+        $tripDate = TripDate::with('trip')->findOrFail($id);
+        return response()->json(['trip_date' => $tripDate]);
     }
-
+    
     /**
      * Mettre à jour une période de voyage existante (admin uniquement)
      */
