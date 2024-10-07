@@ -8,7 +8,7 @@ RUN apt-get update && \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY backend/ /var/www/html
+COPY / /var/www/html
 
 RUN chmod +x /var/www/html/artisan
 
