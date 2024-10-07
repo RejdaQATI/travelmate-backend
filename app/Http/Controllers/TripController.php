@@ -32,14 +32,13 @@ class TripController extends Controller
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
 
-        // Valider les données de la requête
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'pack_type' => 'required|in:standard,premium',
             'destination' => 'required|in:Europe,Amérique,Afrika,Asie,Australie',
             'duration' => 'required|integer',
-            'image' => 'nullable|image|max:2048', // Validation de l'image (facultatif)
+            'image' => 'nullable|image|max:2048', 
         ]);
 
         // Créer un nouveau trip sans l'image d'abord

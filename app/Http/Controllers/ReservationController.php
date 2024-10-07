@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\TripDate;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ReservationAcceptedNotification;
 
 class ReservationController extends Controller
 {
@@ -98,11 +99,29 @@ public function allReservations() {
         // Trouver la réservation et mettre à jour les champs validés
         $reservation = Reservation::findOrFail($id);
         $reservation->update($validatedData);
-    
+        
+        if ($validatedData['status'] == 'confirmed' && $reservation->user) {
+            $reservation->user->notify(new ReservationAcceptedNotification($reservation));
+        }
+        
         return response()->json([
             'reservation' => $reservation,
             'message' => 'La réservation a été mise à jour avec succès'
         ]);
     }
+
+    public function destroy($id)
+{
+
+
+    // Trouver la réservation par son ID
+    $reservation = Reservation::findOrFail($id);
+
+    // Supprimer la réservation
+    $reservation->delete();
+
+    return response()->json(['message' => 'La réservation a été supprimée avec succès.']);
+}
+
     
 }

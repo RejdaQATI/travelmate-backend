@@ -88,15 +88,13 @@ class UserController extends Controller
     /**
      * Mettre à jour un utilisateur (admin uniquement)
      */
+    
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-
         if (!$user->isAdmin()) {
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
-
-        // Logique pour mettre à jour un utilisateur
         $userToUpdate = User::findOrFail($id);
 
         $validatedData = $request->validate([

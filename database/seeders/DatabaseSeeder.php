@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TripDateSeeder::class);
         $this->call(CitySeeder::class);
 
-}
+    }
 }
 
 
