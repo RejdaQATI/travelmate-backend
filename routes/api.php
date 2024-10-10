@@ -9,14 +9,13 @@ use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Mail;
 
 
-Route::post('/trips', [TripController::class, 'store']);  
+
 Route::get('/cities', [CityController::class, 'index']);      
 Route::get('/cities/{id}', [CityController::class, 'show']); 
 
 Route::post('/register', [AuthController::class, 'register']); 
 Route::post('/login', [AuthController::class, 'login']); 
 Route::post('/logout', [AuthController::class, 'logout']); 
-
 
 Route::get('/trips', [TripController::class, 'index']); 
 Route::get('/trips/dates/{id}', [TripDateController::class, 'show']); 
@@ -33,7 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/profile', [UserController::class, 'updateProfile']);
 
 
-
+    Route::post('/trips', [TripController::class, 'store']);  
 
 
     Route::post('/reservations', [ReservationController::class, 'store']); // Faire une réservation
@@ -51,6 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
 
 
+    
 
     // Gestion des voyages (admin)
       // Ajouter un nouveau voyage
