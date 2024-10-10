@@ -288,7 +288,7 @@ class TripController extends Controller
                 'folder' => 'trips/' . $trip->id, 
             ]);
 
-            $user->update(['image' => $uploadResult['secure_url']]);
+            $trip->update(['image' => $uploadResult['secure_url']]);
         }
     }
     
