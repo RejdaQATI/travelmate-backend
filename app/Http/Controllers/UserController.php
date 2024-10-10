@@ -6,11 +6,30 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 
 class UserController extends Controller
 {
     /**
-     * Voir le profil de l'utilisateur connecté (accessible à tous les utilisateurs authentifiés)
+     * @OA\Get(
+     *     path="/api/profile",
+     *     summary="Voir le profil de l'utilisateur connecté",
+     *     tags={"Users"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Détails du profil de l'utilisateur",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 @OA\Property(property="email", type="string", example="john.doe@example.com"),
+     *                 @OA\Property(property="isAdmin", type="boolean", example=false)
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function showProfile()
     {
@@ -22,9 +41,34 @@ class UserController extends Controller
         ]);
     }
     
-
     /**
-     * Mettre à jour le profil de l'utilisateur connecté (accessible à tous les utilisateurs authentifiés)
+     * @OA\Put(
+     *     path="/api/profile",
+     *     summary="Mettre à jour le profil de l'utilisateur connecté",
+     *     tags={"Users"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
+     *             @OA\Property(property="password", type="string", example="newpassword123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Profil mis à jour avec succès",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 @OA\Property(property="email", type="string", example="john.doe@example.com")
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function updateProfile(Request $request)
     {
@@ -48,7 +92,34 @@ class UserController extends Controller
     }
 
     /**
-     * Lister tous les utilisateurs (admin uniquement)
+     * @OA\Get(
+     *     path="/api/users",
+     *     summary="Lister tous les utilisateurs (admin uniquement)",
+     *     tags={"Users"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Liste des utilisateurs récupérée avec succès",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="users", type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="name", type="string", example="John Doe"),
+     *                     @OA\Property(property="email", type="string", example="john.doe@example.com")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Accès refusé. Vous devez être administrateur.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Accès refusé. Vous devez être administrateur.")
+     *         )
+     *     )
+     * )
      */
     public function index()
     {
@@ -58,7 +129,6 @@ class UserController extends Controller
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
 
-        // Logique pour lister les utilisateurs
         $users = User::all();
 
         return response()->json([
@@ -67,7 +137,37 @@ class UserController extends Controller
     }
 
     /**
-     * Voir un utilisateur spécifique (admin uniquement)
+     * @OA\Get(
+     *     path="/api/users/{id}",
+     *     summary="Voir un utilisateur spécifique (admin uniquement)",
+     *     tags={"Users"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de l'utilisateur",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Détails de l'utilisateur",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="id", type="integer", example=1),
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", example="john.doe@example.com")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Accès refusé. Vous devez être administrateur.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Accès refusé. Vous devez être administrateur.")
+     *         )
+     *     )
+     * )
      */
     public function show($id)
     {
@@ -77,7 +177,6 @@ class UserController extends Controller
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
 
-        // Logique pour voir un utilisateur spécifique
         $user = User::findOrFail($id);
 
         return response()->json([
@@ -86,9 +185,50 @@ class UserController extends Controller
     }
 
     /**
-     * Mettre à jour un utilisateur (admin uniquement)
+     * @OA\Put(
+     *     path="/api/users/{id}",
+     *     summary="Mettre à jour un utilisateur (admin uniquement)",
+     *     tags={"Users"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de l'utilisateur",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
+     *             @OA\Property(property="password", type="string", example="newpassword123"),
+     *             @OA\Property(property="role", type="string", example="admin")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Utilisateur mis à jour avec succès",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 @OA\Property(property="email", type="string", example="john.doe@example.com")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Accès refusé. Vous devez être administrateur.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Accès refusé. Vous devez être administrateur.")
+     *         )
+     *     )
+     * )
      */
-    
     public function update(Request $request, $id)
     {
         $user = Auth::user();
@@ -116,7 +256,35 @@ class UserController extends Controller
     }
 
     /**
-     * Supprimer un utilisateur (admin uniquement)
+     * @OA\Delete(
+     *     path="/api/users/{id}",
+     *     summary="Supprimer un utilisateur (admin uniquement)",
+     *     tags={"Users"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de l'utilisateur",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Utilisateur supprimé avec succès",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Utilisateur supprimé avec succès")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Accès refusé. Vous devez être administrateur.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Accès refusé. Vous devez être administrateur.")
+     *         )
+     *     )
+     * )
      */
     public function destroy($id)
     {
@@ -126,7 +294,6 @@ class UserController extends Controller
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
 
-        // Logique pour supprimer un utilisateur
         $userToDelete = User::findOrFail($id);
         $userToDelete->delete();
 

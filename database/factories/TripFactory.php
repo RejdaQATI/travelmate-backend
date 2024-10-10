@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Factories;
 
 use App\Models\Trip;
@@ -10,7 +11,13 @@ class TripFactory extends Factory
 
     public function definition()
     {
-        // $trips = [
-        // ];
+        return [
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'pack_type' => $this->faker->randomElement(['standard', 'premium']),
+            'destination' => $this->faker->randomElement(['Europe', 'Amérique', 'Afrika', 'Asie', 'Australie']),
+            'duration' => $this->faker->numberBetween(3, 15),
+            'image' => null, 
+        ];
     }
 }
