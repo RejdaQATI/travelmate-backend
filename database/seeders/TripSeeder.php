@@ -27,7 +27,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'premium',
                 'destination' => 'Asie',
                 'duration' => 12,
-                'image' => 'storage/images/trips/bali_lombok.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565557/trips/23/krdrpefyztsqygnbrbc4.jpg',
                 'city_id' => null,
                 'activities' => 'Visite des rizières, Randonnée sur le volcan, Plongée sous-marine',
                 'included' => 'Transport, Hébergement, Guide touristique'
@@ -38,7 +38,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Amérique',
                 'duration' => 10,
-                'image' => 'storage/images/trips/patagonie.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565608/trips/24/r9nozt8fmpiirfontwu6.jpg',
                 'city_id' => null,
                 'activities' => 'Randonnées glaciaires, Observation de la faune, Croisière',
                 'included' => 'Hébergement, Transport, Repas'
@@ -49,7 +49,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'premium',
                 'destination' => 'Europe',
                 'duration' => 7,
-                'image' => 'storage/images/trips/italie_rome.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565652/trips/25/jwzs7kwmznrubj9seccj.jpg',
                 'city_id' => null,
                 'activities' => 'Visite de Rome, Dégustation de vin, Tour en voiture',
                 'included' => 'Hébergement, Transport, Repas'
@@ -60,7 +60,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'premium',
                 'destination' => 'Afrique',
                 'duration' => 9,
-                'image' => 'storage/images/trips/safari.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565699/trips/26/aedgfuqm38by02plhtvu.jpg',
                 'city_id' => null,
                 'activities' => 'Safari en Jeep, Observation des animaux, Soirée au camp',
                 'included' => 'Hébergement, Repas, Guide'
@@ -71,7 +71,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Australie',
                 'duration' => 14,
-                'image' => 'storage/images/trips/australie.webp',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565783/trips/28/ukpkrmna3g5hndwq2bby.webp',
                 'city_id' => $sydneyId,
                 'activities' => 'Plongée dans la Grande Barrière de corail, Randonnée dans l\'Outback, Visite de Sydney',
                 'included' => 'Hébergement, Repas, Guide'
@@ -82,7 +82,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Asie',
                 'duration' => 7,
-                'image' => 'storage/images/trips/tokyo-main.avif',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565742/trips/27/iybev1d0rmpebxcii8nr.jpg',
                 'city_id' => $tokyoId,
                 'activities' => 'Visite du quartier d\'Akihabara, Randonnée sur le Mont Fuji, Dégustation de sushi',
                 'included' => 'Transport, Hébergement, Guide'
@@ -93,7 +93,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'premium',
                 'destination' => 'Amérique',
                 'duration' => 10,
-                'image' => 'storage/images/trips/alaska.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565941/trips/29/krppf9xbnjqylooajr2s.jpg',
                 'city_id' => null,
                 'activities' => 'Randonnée glaciaire, Observation de la faune, Croisière',
                 'included' => 'Transport, Hébergement, Repas'
@@ -104,7 +104,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'premium',
                 'destination' => 'Amérique',
                 'duration' => 7,
-                'image' => 'storage/images/trips/newyork.jpeg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565984/trips/30/kupl2ggxqhmprzzesrzy.jpg',
                 'city_id' => $newYorkId,
                 'activities' => 'Tour en bus de Manhattan, Visite de la Statue de la Liberté, Shopping à Times Square',
                 'included' => 'Hébergement, Transport, Guide'
@@ -115,18 +115,18 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Asie',
                 'duration' => 5,
-                'image' => 'storage/images/trips/dubai.webp',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566018/trips/31/xempq0lvosamybcmwr6y.webp',
                 'city_id' => $dubaiId,
                 'activities' => 'Safari dans le désert, Visite du Burj Khalifa, Croisière sur la Marina',
                 'included' => 'Hébergement, Repas, Excursions'
             ],
             [
-                'title' => 'Aventure en Delhi',
+                'title' => 'Aventure à Delhi',
                 'description' => 'Explorez la capitale de l\'Inde avec ses monuments historiques, ses bazars colorés et une culture riche et vibrante.',
                 'pack_type' => 'premium',
                 'destination' => 'Asie',
                 'duration' => 6,
-                'image' => 'storage/images/trips/delhi.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565459/trips/21/uf3zblrgj6vgjburajgm.jpg',
                 'city_id' => $delhiId,
                 'activities' => 'Visite du Taj Mahal, Tour dans Old Delhi, Shopping à Chandni Chowk',
                 'included' => 'Transport, Hébergement, Guide'
@@ -137,7 +137,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Europe',
                 'duration' => 5,
-                'image' => 'storage/images/trips/london.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565519/trips/22/kpzxneth1ue3zydk06g3.jpg',
                 'city_id' => $londonId,
                 'activities' => 'Tour en bus de Londres, Visite du British Museum, Croisière sur la Tamise',
                 'included' => 'Transport, Hébergement, Guide'
@@ -148,7 +148,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'premium',
                 'destination' => 'Amérique',
                 'duration' => 7,
-                'image' => 'storage/images/trips/losangeles.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565254/trips/20/xdxesogyjcfy0eaxvhe1.jpg',
                 'city_id' => $losAngelesId,
                 'activities' => 'Tour à Hollywood, Visite des plages de Malibu, Shopping à Beverly Hills',
                 'included' => 'Transport, Hébergement, Repas'
@@ -159,7 +159,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Australie',
                 'duration' => 10,
-                'image' => 'storage/images/trips/sydney.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566052/trips/32/sfrxataaqwo3cmn8hbt3.jpg',
                 'city_id' => $sydneyId,
                 'activities' => 'Visite de l\'Opéra de Sydney, Plongée à Bondi Beach, Randonnée dans les Blue Mountains',
                 'included' => 'Transport, Hébergement, Guide'
@@ -170,7 +170,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Maldives',
                 'duration' => 7,
-                'image' => 'storage/images/trips/maldives-adventure.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566088/trips/33/cnvwcaj0h4puapn22rhi.jpg',
                 'city_id' => null,
                 'activities' => 'Snorkeling, Bain de soleil, Excursion en bateau',
                 'included' => 'Transport, Hébergement, Activités'
@@ -181,7 +181,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'premium',
                 'destination' => 'Maldives',
                 'duration' => 7,
-                'image' => 'storage/images/trips/maldives-luxury.jpeg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566134/trips/34/sc2vlf9jpbe19jytwdih.jpg',
                 'city_id' => null,
                 'activities' => 'Dîner privé, Spa exclusif, Croisière privée',
                 'included' => 'Hébergement, Repas, Activités exclusives'
@@ -192,7 +192,7 @@ class TripSeeder extends Seeder
                 'pack_type' => 'standard',
                 'destination' => 'Maldives',
                 'duration' => 7,
-                'image' => 'storage/images/trips/maldives-honeymoon.jpg',
+                'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566168/trips/35/kyngehoi829iyqhashpk.jpg',
                 'city_id' => null,
                 'activities' => 'Plongée, Snorkeling, Croisière',
                 'included' => 'Transport, Hébergement, Matériel de plongée'
