@@ -9,7 +9,7 @@ use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Mail;
 
 
-
+Route::post('/trips', [TripController::class, 'store']);  
 Route::get('/cities', [CityController::class, 'index']);      
 Route::get('/cities/{id}', [CityController::class, 'show']); 
 
@@ -53,7 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     // Gestion des voyages (admin)
-    Route::post('/trips', [TripController::class, 'store']);        // Ajouter un nouveau voyage
+      // Ajouter un nouveau voyage
     Route::put('/trips/{id}', [TripController::class, 'update']);   // Mettre à jour un voyage existant
     Route::delete('/trips/{id}', [TripController::class, 'destroy']); // Supprimer un voyage
 
