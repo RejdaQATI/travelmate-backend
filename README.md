@@ -57,7 +57,6 @@ php artisan serve
 Le backend sera disponible à l'adresse suivante : [http://localhost:8000](http://localhost:8000).
 
 ## Installation du Frontend
-## Installation du Frontend
 
 L'installation du frontend est nécessaire pour le bon fonctionnement du site. Vous pouvez trouver le projet ainsi que les étapes d'installation à l'adresse suivante :
 
