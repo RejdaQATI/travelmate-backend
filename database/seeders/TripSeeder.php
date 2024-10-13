@@ -24,7 +24,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Découverte de Bali et Lombok',
                 'description' => 'Un voyage exceptionnel à la découverte des plus belles îles de l’Indonésie, entre plages paradisiaques, rizières et volcans.',
-                'pack_type' => 'premium',
                 'destination' => 'Asie',
                 'duration' => 12,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565557/trips/23/krdrpefyztsqygnbrbc4.jpg',
@@ -35,7 +34,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Aventure en Patagonie',
                 'description' => 'Explorez la nature sauvage de la Patagonie à travers des randonnées au cœur des glaciers et des montagnes majestueuses.',
-                'pack_type' => 'standard',
                 'destination' => 'Amérique',
                 'duration' => 10,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565608/trips/24/r9nozt8fmpiirfontwu6.jpg',
@@ -46,7 +44,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Road Trip en Italie : De Rome à la Toscane',
                 'description' => 'Découvrez les merveilles de l’Italie avec ce road trip allant de la Rome historique à la région des vignobles en Toscane.',
-                'pack_type' => 'premium',
                 'destination' => 'Europe',
                 'duration' => 7,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565652/trips/25/jwzs7kwmznrubj9seccj.jpg',
@@ -57,7 +54,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Safari en Afrique du Sud',
                 'description' => 'Partez à l’aventure et vivez une expérience inoubliable au cœur de la faune africaine avec un safari en Afrique du Sud.',
-                'pack_type' => 'premium',
                 'destination' => 'Afrique',
                 'duration' => 9,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565699/trips/26/aedgfuqm38by02plhtvu.jpg',
@@ -68,7 +64,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Les Merveilles de l’Australie',
                 'description' => 'Découvrez les paysages contrastés de l’Australie, de la Grande Barrière de corail aux étendues désertiques de l’Outback.',
-                'pack_type' => 'standard',
                 'destination' => 'Australie',
                 'duration' => 14,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565783/trips/28/ukpkrmna3g5hndwq2bby.webp',
@@ -79,7 +74,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Découverte de Tokyo',
                 'description' => 'Explorez la métropole fascinante de Tokyo, avec ses gratte-ciels, ses temples anciens et sa cuisine délicieuse.',
-                'pack_type' => 'standard',
                 'destination' => 'Asie',
                 'duration' => 7,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565742/trips/27/iybev1d0rmpebxcii8nr.jpg',
@@ -90,7 +84,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Aventure en Alaska',
                 'description' => 'Découvrez les paysages époustouflants de l\'Alaska avec ses glaciers, montagnes et faune sauvage unique. Une expérience inoubliable pour les amoureux de la nature.',
-                'pack_type' => 'premium',
                 'destination' => 'Amérique',
                 'duration' => 10,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565941/trips/29/krppf9xbnjqylooajr2s.jpg',
@@ -101,7 +94,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'New York, la ville qui ne dort jamais',
                 'description' => 'Découvrez l\'énergie et la grandeur de New York, avec ses gratte-ciels emblématiques, Central Park et Times Square.',
-                'pack_type' => 'premium',
                 'destination' => 'Amérique',
                 'duration' => 7,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565984/trips/30/kupl2ggxqhmprzzesrzy.jpg',
@@ -112,7 +104,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Dubaï, la ville du futur',
                 'description' => 'Plongez dans l\'opulence et la modernité de Dubaï, où le luxe rencontre l\'innovation et les gratte-ciels côtoient les déserts.',
-                'pack_type' => 'standard',
                 'destination' => 'Asie',
                 'duration' => 5,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566018/trips/31/xempq0lvosamybcmwr6y.webp',
@@ -123,7 +114,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Aventure à Delhi',
                 'description' => 'Explorez la capitale de l\'Inde avec ses monuments historiques, ses bazars colorés et une culture riche et vibrante.',
-                'pack_type' => 'premium',
                 'destination' => 'Asie',
                 'duration' => 6,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565459/trips/21/uf3zblrgj6vgjburajgm.jpg',
@@ -134,7 +124,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Londres, entre histoire et modernité',
                 'description' => 'Découvrez la capitale britannique avec ses monuments historiques, ses musées et son atmosphère cosmopolite.',
-                'pack_type' => 'standard',
                 'destination' => 'Europe',
                 'duration' => 5,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565519/trips/22/kpzxneth1ue3zydk06g3.jpg',
@@ -145,7 +134,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Los Angeles, ville des anges',
                 'description' => 'Partez à la découverte de Los Angeles, ses plages mythiques, ses stars hollywoodiennes et sa vie trépidante.',
-                'pack_type' => 'premium',
                 'destination' => 'Amérique',
                 'duration' => 7,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728565254/trips/20/xdxesogyjcfy0eaxvhe1.jpg',
@@ -156,7 +144,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Sydney, l\'aventure Down Under',
                 'description' => 'Découvrez les paysages urbains de Sydney, sa plage de Bondi et son opéra emblématique, au cœur de l\'Australie.',
-                'pack_type' => 'standard',
                 'destination' => 'Australie',
                 'duration' => 10,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566052/trips/32/sfrxataaqwo3cmn8hbt3.jpg',
@@ -167,7 +154,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Maldives Plage de Rêve',
                 'description' => 'Découvrez les plages paradisiaques des Maldives, avec leurs eaux cristallines et sable blanc.',
-                'pack_type' => 'standard',
                 'destination' => 'Maldives',
                 'duration' => 7,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566088/trips/33/cnvwcaj0h4puapn22rhi.jpg',
@@ -178,7 +164,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Maldives Expérience Luxe',
                 'description' => 'Profitez d\'un séjour de luxe aux Maldives, avec des villas sur pilotis et des services exclusifs.',
-                'pack_type' => 'premium',
                 'destination' => 'Maldives',
                 'duration' => 7,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566134/trips/34/sc2vlf9jpbe19jytwdih.jpg',
@@ -189,7 +174,6 @@ class TripSeeder extends Seeder
             [
                 'title' => 'Maldives Snorkeling & Plongée',
                 'description' => 'Explorez les fonds marins des Maldives et vivez une expérience inoubliable de plongée et de snorkeling.',
-                'pack_type' => 'standard',
                 'destination' => 'Maldives',
                 'duration' => 7,
                 'image' => 'https://res.cloudinary.com/dl83ujoxi/image/upload/v1728566168/trips/35/kyngehoi829iyqhashpk.jpg',

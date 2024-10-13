@@ -84,18 +84,20 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        $city = City::with('trips')->find($id);
-
+        // Charger la ville avec son voyage associé
+        $city = City::with('trip')->find($id);
+    
         if (!$city) {
             return response()->json([
                 'success' => false,
                 'message' => 'Ville non trouvée',
             ], 404);
         }
-
+    
         return response()->json([
             'success' => true,
             'city' => $city,
         ]);
     }
+    
 }

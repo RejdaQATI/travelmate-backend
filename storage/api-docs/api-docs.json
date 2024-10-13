@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000/api",
+            "url": "http://localhost:8000/",
             "description": "Local development server"
         }
     ],
@@ -46,6 +46,15 @@
                                         "type": "string",
                                         "format": "password",
                                         "example": "password123"
+                                    },
+                                    "birthdate": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "+1234567890"
                                     }
                                 },
                                 "type": "object"
@@ -73,6 +82,15 @@
                                                 "email": {
                                                     "type": "string",
                                                     "example": "john.doe@example.com"
+                                                },
+                                                "birthdate": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1990-01-01"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string",
+                                                    "example": "+1234567890"
                                                 }
                                             },
                                             "type": "object"
@@ -847,9 +865,33 @@
                                                         "type": "string",
                                                         "example": "Voyage à Paris"
                                                     },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Une belle aventure en Europe"
+                                                    },
                                                     "destination": {
                                                         "type": "string",
                                                         "example": "Europe"
+                                                    },
+                                                    "duration": {
+                                                        "type": "integer",
+                                                        "example": 7
+                                                    },
+                                                    "city_id": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "activities": {
+                                                        "type": "string",
+                                                        "example": "Randonnée, Visite des musées"
+                                                    },
+                                                    "included": {
+                                                        "type": "string",
+                                                        "example": "Transport, Hébergement"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
                                                     }
                                                 },
                                                 "type": "object"
@@ -877,9 +919,11 @@
                                 "required": [
                                     "title",
                                     "description",
-                                    "pack_type",
                                     "destination",
-                                    "duration"
+                                    "duration",
+                                    "activities",
+                                    "included",
+                                    "city_id"
                                 ],
                                 "properties": {
                                     "title": {
@@ -889,14 +933,6 @@
                                     "description": {
                                         "type": "string",
                                         "example": "Une belle aventure en Europe."
-                                    },
-                                    "pack_type": {
-                                        "type": "string",
-                                        "enum": [
-                                            "standard",
-                                            "premium"
-                                        ],
-                                        "example": "standard"
                                     },
                                     "destination": {
                                         "type": "string",
@@ -912,6 +948,14 @@
                                     "duration": {
                                         "type": "integer",
                                         "example": 7
+                                    },
+                                    "activities": {
+                                        "type": "string",
+                                        "example": "Randonnée, Visite des musées"
+                                    },
+                                    "included": {
+                                        "type": "string",
+                                        "example": "Transport, Hébergement"
                                     },
                                     "image": {
                                         "type": "string",
@@ -943,6 +987,22 @@
                                                 "destination": {
                                                     "type": "string",
                                                     "example": "Europe"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "activities": {
+                                                    "type": "string",
+                                                    "example": "Randonnée, Visite des musées"
+                                                },
+                                                "included": {
+                                                    "type": "string",
+                                                    "example": "Transport, Hébergement"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
                                                 }
                                             },
                                             "type": "object"
@@ -1015,6 +1075,26 @@
                                                 "destination": {
                                                     "type": "string",
                                                     "example": "Europe"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "city_id": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "activities": {
+                                                    "type": "string",
+                                                    "example": "Randonnée, Visite des musées"
+                                                },
+                                                "included": {
+                                                    "type": "string",
+                                                    "example": "Transport, Hébergement"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
                                                 }
                                             },
                                             "type": "object"
@@ -1074,14 +1154,6 @@
                                         "type": "string",
                                         "example": "Mise à jour de la description du voyage."
                                     },
-                                    "pack_type": {
-                                        "type": "string",
-                                        "enum": [
-                                            "standard",
-                                            "premium"
-                                        ],
-                                        "example": "premium"
-                                    },
                                     "destination": {
                                         "type": "string",
                                         "enum": [
@@ -1096,6 +1168,18 @@
                                     "duration": {
                                         "type": "integer",
                                         "example": 7
+                                    },
+                                    "activities": {
+                                        "type": "string",
+                                        "example": "Randonnée, Plongée, Visite de musée"
+                                    },
+                                    "included": {
+                                        "type": "string",
+                                        "example": "Hébergement, Transport"
+                                    },
+                                    "city_id": {
+                                        "type": "integer",
+                                        "example": 3
                                     },
                                     "image": {
                                         "type": "string",
@@ -1127,6 +1211,26 @@
                                                 "destination": {
                                                     "type": "string",
                                                     "example": "Europe"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "activities": {
+                                                    "type": "string",
+                                                    "example": "Randonnée, Plongée, Visite de musée"
+                                                },
+                                                "included": {
+                                                    "type": "string",
+                                                    "example": "Hébergement, Transport"
+                                                },
+                                                "city_id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
                                                 }
                                             },
                                             "type": "object"
@@ -1218,13 +1322,13 @@
                 ]
             }
         },
-        "/api/trips/popular": {
+        "/api/populartrips": {
             "get": {
                 "tags": [
                     "Trips"
                 ],
                 "summary": "Obtenir les voyages populaires",
-                "operationId": "0b621ca24ee39183e761138b8b172a00",
+                "operationId": "76848b840b637855799aa48952ea1dde",
                 "responses": {
                     "200": {
                         "description": "Liste des voyages populaires",
@@ -1265,13 +1369,13 @@
                 }
             }
         },
-        "/api/trips/maldives": {
+        "/api/maldives": {
             "get": {
                 "tags": [
                     "Trips"
                 ],
                 "summary": "Obtenir les voyages aux Maldives",
-                "operationId": "b83d8699f3ff22dc841dbe02460420fc",
+                "operationId": "4129301f1493e0953539469e7b506fc4",
                 "responses": {
                     "200": {
                         "description": "Liste des voyages aux Maldives",
@@ -1776,7 +1880,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Mettre à jour le profil de l'utilisateur connecté",
+                "summary": "Update the profile of the logged-in user",
                 "operationId": "116515f53f0ecf2584e4a57a7e7db4ba",
                 "requestBody": {
                     "required": true,
@@ -1795,6 +1899,15 @@
                                     "password": {
                                         "type": "string",
                                         "example": "newpassword123"
+                                    },
+                                    "birthdate": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "+1234567890"
                                     }
                                 },
                                 "type": "object"
@@ -1804,7 +1917,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Profil mis à jour avec succès",
+                        "description": "Profile updated successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1822,6 +1935,15 @@
                                                 "email": {
                                                     "type": "string",
                                                     "example": "john.doe@example.com"
+                                                },
+                                                "birthdate": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1990-01-01"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string",
+                                                    "example": "+1234567890"
                                                 }
                                             },
                                             "type": "object"

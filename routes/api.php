@@ -7,6 +7,7 @@ use App\Http\Controllers\TripDateController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\PaymentController;
 
 
 
@@ -31,7 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [UserController::class, 'showProfile']);   
     Route::put('/profile', [UserController::class, 'updateProfile']);
 
-
+    Route::post('/payment', [PaymentController::class, 'createPayment']);
     Route::post('/trips', [TripController::class, 'store']);  
 
 
@@ -54,7 +55,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Gestion des voyages (admin)
       // Ajouter un nouveau voyage
-    Route::put('/trips/{id}', [TripController::class, 'update']);   // Mettre à jour un voyage existant
+    Route::post('/trips/{id}', [TripController::class, 'update']);   // Mettre à jour un voyage existant
     Route::delete('/trips/{id}', [TripController::class, 'destroy']); // Supprimer un voyage
 
     // Gestion des périodes de voyage (admin)

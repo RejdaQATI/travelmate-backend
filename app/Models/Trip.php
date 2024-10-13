@@ -13,7 +13,6 @@ class Trip extends Model
         'title', 
         'description', 
         'image',
-        'pack_type', 
         'destination', 
         'duration',
         'city_id',

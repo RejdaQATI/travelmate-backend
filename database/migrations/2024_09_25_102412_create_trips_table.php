@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id(); // Primary key
             $table->string('title'); // Title of the trip
             $table->text('description'); // Description of the trip
-            $table->enum('pack_type', ['standard', 'premium']); // Type of trip package
             $table->string('destination'); // Destination name or region
             $table->integer('duration'); // Duration of the trip in days
             $table->string('image')->nullable(); // Path to an image for the trip

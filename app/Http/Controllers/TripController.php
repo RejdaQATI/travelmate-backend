@@ -26,7 +26,13 @@ class TripController extends Controller
      *                 @OA\Items(
      *                     @OA\Property(property="id", type="integer", example=1),
      *                     @OA\Property(property="title", type="string", example="Voyage à Paris"),
-     *                     @OA\Property(property="destination", type="string", example="Europe")
+     *                     @OA\Property(property="description", type="string", example="Une belle aventure en Europe"),
+     *                     @OA\Property(property="destination", type="string", example="Europe"),
+     *                     @OA\Property(property="duration", type="integer", example=7),
+     *                     @OA\Property(property="city_id", type="integer", example=10),
+     *                     @OA\Property(property="activities", type="string", example="Randonnée, Visite des musées"),
+     *                     @OA\Property(property="included", type="string", example="Transport, Hébergement"),
+     *                     @OA\Property(property="image", type="string", example="https://example.com/image.jpg")
      *                 )
      *             )
      *         )
@@ -35,11 +41,31 @@ class TripController extends Controller
      */
     public function index()
     {
-        $trips = Trip::all();
+        // Récupérer les voyages avec leurs tripDates
+        $trips = Trip::with('tripDates')->get();
+    
+        // Formater les voyages pour inclure le prix minimum
+        $formattedTrips = $trips->map(function ($trip) {
+            $minPrice = $trip->tripDates->isNotEmpty() 
+                ? $trip->tripDates->min('price')  // Récupérer le prix minimum des dates de voyage
+                : null; // Si aucune date n'est disponible, renvoyer null
+    
+            return [
+                'id' => $trip->id,
+                'title' => $trip->title,
+                'description' => $trip->description,
+                'destination' => $trip->destination,
+                'image' => $trip->image,
+                'minPrice' => $minPrice, // Ajouter le prix minimum calculé
+                // Ajoute d'autres attributs si nécessaire
+            ];
+        });
+    
         return response()->json([
-            'trips' => $trips
+            'trips' => $formattedTrips
         ]);
     }
+    
 
     /**
      * @OA\Post(
@@ -51,12 +77,13 @@ class TripController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             type="object",
-     *             required={"title", "description", "pack_type", "destination", "duration"},
+     *             required={"title", "description", "destination", "duration", "activities", "included", "city_id"},
      *             @OA\Property(property="title", type="string", example="Voyage à Paris"),
      *             @OA\Property(property="description", type="string", example="Une belle aventure en Europe."),
-     *             @OA\Property(property="pack_type", type="string", enum={"standard", "premium"}, example="standard"),
      *             @OA\Property(property="destination", type="string", enum={"Europe", "Amérique", "Afrika", "Asie", "Australie"}, example="Europe"),
      *             @OA\Property(property="duration", type="integer", example=7),
+     *             @OA\Property(property="activities", type="string", example="Randonnée, Visite des musées"),
+     *             @OA\Property(property="included", type="string", example="Transport, Hébergement"),
      *             @OA\Property(property="image", type="string", format="binary")
      *         )
      *     ),
@@ -68,7 +95,11 @@ class TripController extends Controller
      *             @OA\Property(property="trip", type="object",
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="title", type="string", example="Voyage à Paris"),
-     *                 @OA\Property(property="destination", type="string", example="Europe")
+     *                 @OA\Property(property="destination", type="string", example="Europe"),
+     *                 @OA\Property(property="duration", type="integer", example=7),
+     *                 @OA\Property(property="activities", type="string", example="Randonnée, Visite des musées"),
+     *                 @OA\Property(property="included", type="string", example="Transport, Hébergement"),
+     *                 @OA\Property(property="image", type="string", example="https://example.com/image.jpg")
      *             )
      *         )
      *     ),
@@ -93,9 +124,11 @@ class TripController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'pack_type' => 'required|in:standard,premium',
             'destination' => 'required|in:Europe,Amérique,Afrika,Asie,Australie',
             'duration' => 'required|integer',
+            'city_id' => 'nullable|exists:cities,id',
+            'activities' => 'required|string',
+            'included' => 'required|string',
             'image' => 'nullable|image|max:2048', 
         ]);
         $trip = Trip::create($validatedData);
@@ -125,7 +158,12 @@ class TripController extends Controller
      *             @OA\Property(property="trip", type="object",
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="title", type="string", example="Voyage à Paris"),
-     *                 @OA\Property(property="destination", type="string", example="Europe")
+     *                 @OA\Property(property="destination", type="string", example="Europe"),
+     *                 @OA\Property(property="duration", type="integer", example=7),
+     *                 @OA\Property(property="city_id", type="integer", example=10),
+     *                 @OA\Property(property="activities", type="string", example="Randonnée, Visite des musées"),
+     *                 @OA\Property(property="included", type="string", example="Transport, Hébergement"),
+     *                 @OA\Property(property="image", type="string", example="https://example.com/image.jpg")
      *             )
      *         )
      *     ),
@@ -147,53 +185,61 @@ class TripController extends Controller
         ]);
     }
 
-    /**
-     * @OA\Put(
-     *     path="/api/trips/{id}",
-     *     summary="Mettre à jour un voyage (admin seulement)",
-     *     tags={"Trips"},
-     *     security={{"bearerAuth": {}}},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID du voyage",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="title", type="string", example="Voyage à Paris"),
-     *             @OA\Property(property="description", type="string", example="Mise à jour de la description du voyage."),
-     *             @OA\Property(property="pack_type", type="string", enum={"standard", "premium"}, example="premium"),
-     *             @OA\Property(property="destination", type="string", enum={"Europe", "Amérique", "Afrika", "Asie", "Australie"}, example="Europe"),
-     *             @OA\Property(property="duration", type="integer", example=7),
-     *             @OA\Property(property="image", type="string", format="binary")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Voyage mis à jour avec succès",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="trip", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="title", type="string", example="Voyage à Paris"),
-     *                 @OA\Property(property="destination", type="string", example="Europe")
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=403,
-     *         description="Accès refusé. Vous devez être administrateur.",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="error", type="string", example="Accès refusé. Vous devez être administrateur.")
-     *         )
-     *     )
-     * )
-     */
+/**
+ * @OA\Put(
+ *     path="/api/trips/{id}",
+ *     summary="Mettre à jour un voyage (admin seulement)",
+ *     tags={"Trips"},
+ *     security={{"bearerAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID du voyage",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="title", type="string", example="Voyage à Paris"),
+ *             @OA\Property(property="description", type="string", example="Mise à jour de la description du voyage."),
+ *             @OA\Property(property="destination", type="string", enum={"Europe", "Amérique", "Afrika", "Asie", "Australie"}, example="Europe"),
+ *             @OA\Property(property="duration", type="integer", example=7),
+ *             @OA\Property(property="activities", type="string", example="Randonnée, Plongée, Visite de musée"),
+ *             @OA\Property(property="included", type="string", example="Hébergement, Transport"),
+ *             @OA\Property(property="city_id", type="integer", example=3),
+ *             @OA\Property(property="image", type="string", format="binary")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Voyage mis à jour avec succès",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="trip", type="object",
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="title", type="string", example="Voyage à Paris"),
+ *                 @OA\Property(property="destination", type="string", example="Europe"),
+ *                 @OA\Property(property="duration", type="integer", example=7),
+ *                 @OA\Property(property="activities", type="string", example="Randonnée, Plongée, Visite de musée"),
+ *                 @OA\Property(property="included", type="string", example="Hébergement, Transport"),
+ *                 @OA\Property(property="city_id", type="integer", example=3),
+ *                 @OA\Property(property="image", type="string", example="https://example.com/image.jpg")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Accès refusé. Vous devez être administrateur.",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="Accès refusé. Vous devez être administrateur.")
+ *         )
+ *     )
+ * )
+ */
+
     public function update(Request $request, $id)
     {
         $user = Auth::user();
@@ -201,19 +247,27 @@ class TripController extends Controller
         if (!$user->isAdmin()) {
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
+
         $trip = Trip::findOrFail($id);
 
         $validatedData = $request->validate([
             'title' => 'string|max:255',
             'description' => 'string',
-            'pack_type' => 'in:standard,premium',
             'destination' => 'in:Europe,Amérique,Afrika,Asie,Australie',
             'duration' => 'integer',
-            'image' => 'nullable|image|max:2048', 
+            'city_id' => 'nullable|integer|exists:cities,id', 
+            'activities' => 'nullable|string',
+            'included' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',  // Modifier ici pour gérer les fichiers image correctement
         ]);
-
+        
+    
+        // Mettre à jour les données du trip
         $trip->update($validatedData);
+
+        // Gérer l'image si nécessaire
         $this->storeImage($request, $trip);
+
         return response()->json([
             'trip' => $trip
         ]);
@@ -257,11 +311,13 @@ class TripController extends Controller
         if (!$user->isAdmin()) {
             return response()->json(['error' => 'Accès refusé. Vous devez être administrateur.'], 403);
         }
+
         $trip = Trip::findOrFail($id);
         if ($trip->image) {
             Storage::disk('public')->delete(str_replace('storage/', '', $trip->image));
         }
         $trip->delete();
+
         return response()->json([
             'message' => 'Voyage supprimé avec succès'
         ]);
@@ -269,8 +325,7 @@ class TripController extends Controller
 
     private function storeImage(Request $request, Trip $trip)
     {
-    
-        if (request()->hasFile('image')) {
+        if ($request->hasFile('image')) {  // Vérifie si un fichier image est présent
             Configuration::instance([
                 'cloud' => [
                     'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
@@ -281,21 +336,20 @@ class TripController extends Controller
                     'secure' => true 
                 ]
             ]);
-
-            $filePath = request()->file('image')->getRealPath();
-
+            
+            $filePath = $request->file('image')->getRealPath(); // Récupère le chemin réel du fichier
             $uploadResult = (new UploadApi())->upload($filePath, [
-                'folder' => 'trips/' . $trip->id, 
+                'folder' => 'trips/' . $trip->id,
             ]);
-
             $trip->update(['image' => $uploadResult['secure_url']]);
         }
     }
     
 
+
     /**
      * @OA\Get(
-     *     path="/api/trips/popular",
+     *     path="/api/populartrips",
      *     summary="Obtenir les voyages populaires",
      *     tags={"Trips"},
      *     @OA\Response(
@@ -317,16 +371,26 @@ class TripController extends Controller
      */
     public function getPopularTrips()
     {
-        $popularTrips = Trip::inRandomOrder()->take(5)->get();
+        $popularTrips = Trip::with('tripDates')->inRandomOrder()->take(5)->get();
+        $formattedTrips = $popularTrips->map(function ($trip) {
+            $minPrice = $trip->tripDates->min('price'); 
+            return [
+                'id' => $trip->id,
+                'title' => $trip->title,
+                'image' => $trip->image,
+                'price' => $minPrice, 
+            ];
+        });
+    
         return response()->json([
             'success' => true,
-            'trips' => $popularTrips
+            'trips' => $formattedTrips,
         ]);
     }
-
+    
     /**
      * @OA\Get(
-     *     path="/api/trips/maldives",
+     *     path="/api/maldives",
      *     summary="Obtenir les voyages aux Maldives",
      *     tags={"Trips"},
      *     @OA\Response(

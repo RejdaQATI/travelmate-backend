@@ -41,56 +41,61 @@ class UserController extends Controller
         ]);
     }
     
-    /**
-     * @OA\Put(
-     *     path="/api/profile",
-     *     summary="Mettre à jour le profil de l'utilisateur connecté",
-     *     tags={"Users"},
-     *     security={{"bearerAuth": {}}},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="name", type="string", example="John Doe"),
-     *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
-     *             @OA\Property(property="password", type="string", example="newpassword123")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Profil mis à jour avec succès",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="user", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="John Doe"),
-     *                 @OA\Property(property="email", type="string", example="john.doe@example.com")
-     *             )
-     *         )
-     *     )
-     * )
-     */
-    public function updateProfile(Request $request)
-    {
-        $user = auth()->user();
+/**
+ * @OA\Put(
+ *     path="/api/profile",
+ *     summary="Update the profile of the logged-in user",
+ *     tags={"Users"},
+ *     security={{"bearerAuth": {}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="name", type="string", example="John Doe"),
+ *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
+ *             @OA\Property(property="password", type="string", example="newpassword123"),
+ *             @OA\Property(property="birthdate", type="string", format="date", example="1990-01-01"),
+ *             @OA\Property(property="phone_number", type="string", example="+1234567890")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Profile updated successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="user", type="object",
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="name", type="string", example="John Doe"),
+ *                 @OA\Property(property="email", type="string", example="john.doe@example.com"),
+ *                 @OA\Property(property="birthdate", type="string", format="date", example="1990-01-01"),
+ *                 @OA\Property(property="phone_number", type="string", example="+1234567890")
+ *             )
+ *         )
+ *     )
+ * )
+ */
+public function updateProfile(Request $request)
+{
+    $user = auth()->user();
 
-        $validatedData = $request->validate([
-            'name' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'string|min:8|nullable',
-        ]);
+    $validatedData = $request->validate([
+        'name' => 'string|max:255',
+        'email' => 'string|email|max:255|unique:users,email,' . $user->id,
+        'password' => 'string|min:8|nullable',
+        'birthdate' => 'nullable|date',
+        'phone_number' => 'nullable|string|max:15',
+    ]);
 
-        if ($request->input('password')) {
-            $validatedData['password'] = Hash::make($request->input('password'));
-        }
-
-        $user->update($validatedData);
-
-        return response()->json([
-            'user' => $user
-        ]);
+    if ($request->input('password')) {
+        $validatedData['password'] = Hash::make($request->input('password'));
     }
 
+    $user->update($validatedData);
+
+    return response()->json([
+        'user' => $user
+    ]);
+}
     /**
      * @OA\Get(
      *     path="/api/users",
@@ -241,7 +246,9 @@ class UserController extends Controller
             'name' => 'string|max:255',
             'email' => 'string|email|max:255|unique:users,email,' . $userToUpdate->id,
             'password' => 'string|min:8|nullable',
-            'role' => 'in:user,admin',
+            'birthdate' => 'date|nullable', 
+            'phone_number' => 'string|max:15|nullable',
+            'role' => 'in:admin,user',
         ]);
 
         if ($request->input('password')) {
