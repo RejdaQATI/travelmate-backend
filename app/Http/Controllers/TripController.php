@@ -41,14 +41,11 @@ class TripController extends Controller
      */
     public function index()
     {
-        // Récupérer les voyages avec leurs tripDates
         $trips = Trip::with('tripDates')->get();
-    
-        // Formater les voyages pour inclure le prix minimum
         $formattedTrips = $trips->map(function ($trip) {
             $minPrice = $trip->tripDates->isNotEmpty() 
-                ? $trip->tripDates->min('price')  // Récupérer le prix minimum des dates de voyage
-                : null; // Si aucune date n'est disponible, renvoyer null
+                ? $trip->tripDates->min('price')  
+                : null; 
     
             return [
                 'id' => $trip->id,
@@ -56,8 +53,7 @@ class TripController extends Controller
                 'description' => $trip->description,
                 'destination' => $trip->destination,
                 'image' => $trip->image,
-                'minPrice' => $minPrice, // Ajouter le prix minimum calculé
-                // Ajoute d'autres attributs si nécessaire
+                'minPrice' => $minPrice, 
             ];
         });
     
@@ -258,14 +254,11 @@ class TripController extends Controller
             'city_id' => 'nullable|integer|exists:cities,id', 
             'activities' => 'nullable|string',
             'included' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',  // Modifier ici pour gérer les fichiers image correctement
+            'image' => 'nullable|image|max:2048',  
         ]);
         
-    
-        // Mettre à jour les données du trip
-        $trip->update($validatedData);
 
-        // Gérer l'image si nécessaire
+        $trip->update($validatedData);
         $this->storeImage($request, $trip);
 
         return response()->json([
@@ -325,7 +318,7 @@ class TripController extends Controller
 
     private function storeImage(Request $request, Trip $trip)
     {
-        if ($request->hasFile('image')) {  // Vérifie si un fichier image est présent
+        if ($request->hasFile('image')) {
             Configuration::instance([
                 'cloud' => [
                     'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
@@ -337,7 +330,7 @@ class TripController extends Controller
                 ]
             ]);
             
-            $filePath = $request->file('image')->getRealPath(); // Récupère le chemin réel du fichier
+            $filePath = $request->file('image')->getRealPath(); 
             $uploadResult = (new UploadApi())->upload($filePath, [
                 'folder' => 'trips/' . $trip->id,
             ]);

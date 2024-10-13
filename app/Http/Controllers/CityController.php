@@ -84,7 +84,6 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        // Charger la ville avec son voyage associé
         $city = City::with('trip')->find($id);
     
         if (!$city) {
