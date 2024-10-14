@@ -18,8 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['user', 'admin'])->default('user'); 
-            $table->date('birthdate')->nullable(); // Ajoute la date de naissance
-            $table->string('phone_number')->nullable(); // Ajoute le numéro de téléphone
+            $table->date('birthdate')->nullable();
+            $table->string('phone_number')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
