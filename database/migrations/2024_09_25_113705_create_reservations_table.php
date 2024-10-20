@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
             $table->foreignId('trip_date_id')->constrained('trip_dates')->onDelete('cascade'); 
             $table->integer('number_of_participants');
-            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending'); 
-            $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending'); 
+            $table->enum('status', ['en attente', 'confirmé', 'annulé'])->default('en attente'); 
+            $table->enum('payment_status', ['en attente', 'payé', 'échoué'])->default('en attente'); 
             $table->timestamps();
         });
     }

@@ -17,8 +17,8 @@ class ReservationFactory extends Factory
             'user_id' => User::factory(), // Relation avec un utilisateur
             'trip_date_id' => TripDate::factory(), // Relation avec une période de voyage
             'number_of_participants' => $this->faker->numberBetween(1, 5), // Nombre aléatoire de participants
-            'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled']),
-            'payment_status' => $this->faker->randomElement(['pending', 'paid', 'failed']),
+            'status' => $this->faker->randomElement(['en attente', 'confirmé', 'annulé']),
+            'payment_status' => $this->faker->randomElement(['en attente', 'payé', 'échoué']),
         ];
     }
 }

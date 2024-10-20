@@ -41,7 +41,7 @@ class PaymentController extends Controller
             if ($paymentIntent->status == 'succeeded') {
                 $tripDate = TripDate::findOrFail($tripDateId);
                 $currentParticipants = Reservation::where('trip_date_id', $tripDateId)
-                    ->where('status', 'confirmed')
+                    ->where('status', 'confirmé')
                     ->sum('number_of_participants');
 
                 if ($currentParticipants + $numberOfParticipants > $tripDate->max_participants) {
@@ -53,7 +53,7 @@ class PaymentController extends Controller
                     'trip_date_id' => $tripDateId,
                     'number_of_participants' => $numberOfParticipants,
                     'total_price' => $amount / 100,  
-                    'payment_status' => 'paid',
+                    'payment_status' => 'payé',
                 ]);
 
                 DB::commit();  

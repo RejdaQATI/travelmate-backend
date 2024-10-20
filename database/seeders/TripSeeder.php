@@ -32,7 +32,7 @@ class TripSeeder extends Seeder
                 'included' => 'Transport, Hébergement, Guide touristique'
             ],
             [
-                'title' => 'Aventure en Patagonie',
+                'title' => 'Expédition en Patagonie',
                 'description' => 'Explorez la nature sauvage de la Patagonie à travers des randonnées au cœur des glaciers et des montagnes majestueuses.',
                 'destination' => 'Amérique',
                 'duration' => 10,
@@ -42,7 +42,7 @@ class TripSeeder extends Seeder
                 'included' => 'Hébergement, Transport, Repas'
             ],
             [
-                'title' => 'Road Trip en Italie : De Rome à la Toscane',
+                'title' => 'Italie : De Rome à la Toscane',
                 'description' => 'Découvrez les merveilles de l’Italie avec ce road trip allant de la Rome historique à la région des vignobles en Toscane.',
                 'destination' => 'Europe',
                 'duration' => 7,
@@ -72,7 +72,7 @@ class TripSeeder extends Seeder
                 'included' => 'Hébergement, Repas, Guide'
             ],
             [
-                'title' => 'Découverte de Tokyo',
+                'title' => 'Découverte Fascinante de Tokyo',
                 'description' => 'Explorez la métropole fascinante de Tokyo, avec ses gratte-ciels, ses temples anciens et sa cuisine délicieuse.',
                 'destination' => 'Asie',
                 'duration' => 7,
@@ -82,7 +82,7 @@ class TripSeeder extends Seeder
                 'included' => 'Transport, Hébergement, Guide'
             ],
             [
-                'title' => 'Aventure en Alaska',
+                'title' => 'Aventure en Alaska : Paradis Polaire',
                 'description' => 'Découvrez les paysages époustouflants de l\'Alaska avec ses glaciers, montagnes et faune sauvage unique. Une expérience inoubliable pour les amoureux de la nature.',
                 'destination' => 'Amérique',
                 'duration' => 10,
@@ -102,7 +102,7 @@ class TripSeeder extends Seeder
                 'included' => 'Hébergement, Transport, Guide'
             ],
             [
-                'title' => 'Dubaï, la ville du futur',
+                'title' => 'Dubaï : Entre Désert et Ciel',
                 'description' => 'Plongez dans l\'opulence et la modernité de Dubaï, où le luxe rencontre l\'innovation et les gratte-ciels côtoient les déserts.',
                 'destination' => 'Asie',
                 'duration' => 5,
@@ -112,7 +112,7 @@ class TripSeeder extends Seeder
                 'included' => 'Hébergement, Repas, Excursions'
             ],
             [
-                'title' => 'Aventure à Delhi',
+                'title' => 'Aventure à Delhi : L\'Inde à 360°',
                 'description' => 'Explorez la capitale de l\'Inde avec ses monuments historiques, ses bazars colorés et une culture riche et vibrante.',
                 'destination' => 'Asie',
                 'duration' => 6,
@@ -152,7 +152,7 @@ class TripSeeder extends Seeder
                 'included' => 'Transport, Hébergement, Guide'
             ],
             [
-                'title' => 'Maldives Plage de Rêve',
+                'title' => 'Maldives, Plage de Rêve',
                 'description' => 'Découvrez les plages paradisiaques des Maldives, avec leurs eaux cristallines et sable blanc.',
                 'destination' => 'Maldives',
                 'duration' => 7,
@@ -162,7 +162,7 @@ class TripSeeder extends Seeder
                 'included' => 'Transport, Hébergement, Activités'
             ],
             [
-                'title' => 'Maldives Expérience Luxe',
+                'title' => 'Maldives, Expérience Luxe',
                 'description' => 'Profitez d\'un séjour de luxe aux Maldives, avec des villas sur pilotis et des services exclusifs.',
                 'destination' => 'Maldives',
                 'duration' => 7,
@@ -172,7 +172,7 @@ class TripSeeder extends Seeder
                 'included' => 'Hébergement, Repas, Activités exclusives'
             ],
             [
-                'title' => 'Maldives Snorkeling & Plongée',
+                'title' => 'Maldives, Snorkeling & Plongée',
                 'description' => 'Explorez les fonds marins des Maldives et vivez une expérience inoubliable de plongée et de snorkeling.',
                 'destination' => 'Maldives',
                 'duration' => 7,

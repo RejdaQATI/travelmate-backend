@@ -60,7 +60,7 @@ public function register(Request $request)
     $validator = Validator::make($request->all(), [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8',
+        'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/'],
         'birthdate' => 'nullable|date',
         'phone_number' => 'nullable|string|max:15'
     ]);

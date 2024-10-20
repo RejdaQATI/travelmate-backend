@@ -31,7 +31,6 @@ Route::delete('/reservations/{id}', [ReservationController::class, 'destroy']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [UserController::class, 'showProfile']);   
     Route::put('/profile', [UserController::class, 'updateProfile']);
-
     Route::post('/payment', [PaymentController::class, 'createPayment']);
     Route::post('/trips', [TripController::class, 'store']);  
 

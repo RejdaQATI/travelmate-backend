@@ -1,8 +1,8 @@
 <?php
 
 use Tests\TestCase;
-use App\Models\User; // Ajoute cette ligne
-use App\Models\Trip; // Ajoute cette ligne
+use App\Models\User; 
+use App\Models\Trip; 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TripControllerTest extends TestCase

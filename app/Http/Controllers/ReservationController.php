@@ -30,7 +30,7 @@ class ReservationController extends Controller
      *                             @OA\Property(property="title", type="string", example="Trip to Paris")
      *                         )
      *                     ),
-     *                     @OA\Property(property="status", type="string", example="confirmed")
+     *                     @OA\Property(property="status", type="string", example="confirmé")
      *                 )
      *             )
      *         )
@@ -68,7 +68,7 @@ class ReservationController extends Controller
      *                             @OA\Property(property="title", type="string", example="Trip to Paris")
      *                         )
      *                     ),
-     *                     @OA\Property(property="status", type="string", example="confirmed")
+     *                     @OA\Property(property="status", type="string", example="confirmé")
      *                 )
      *             )
      *         )
@@ -114,7 +114,7 @@ class ReservationController extends Controller
      *             @OA\Property(property="reservation", type="object",
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="number_of_participants", type="integer", example=2),
-     *                 @OA\Property(property="status", type="string", example="pending")
+     *                 @OA\Property(property="status", type="string", example="en attente")
      *             )
      *         )
      *     ),
@@ -137,7 +137,7 @@ class ReservationController extends Controller
 
         $tripDate = TripDate::findOrFail($validatedData['trip_date_id']);
         $currentParticipants = Reservation::where('trip_date_id', $tripDate->id)
-            ->where('status', 'confirmed')
+            ->where('status', 'confirmé')
             ->sum('number_of_participants');
         if ($currentParticipants + $validatedData['number_of_participants'] > $tripDate->max_participants) {
             return response()->json(['error' => 'Le nombre maximum de participants est atteint.'], 400);
@@ -146,7 +146,7 @@ class ReservationController extends Controller
             'user_id' => auth()->id(),
             'trip_date_id' => $validatedData['trip_date_id'],
             'number_of_participants' => $validatedData['number_of_participants'],
-            'status' => 'pending',
+            'status' => 'en attente',
         ]);
 
         return response()->json([
@@ -173,7 +173,7 @@ class ReservationController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="status", type="string", example="pending"),
+     *             @OA\Property(property="status", type="string", example="en attente"),
      *             @OA\Property(property="number_of_participants", type="integer", example=2)
      *         )
      *     ),
@@ -212,7 +212,7 @@ class ReservationController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="status", type="string", example="confirmed"),
+     *             @OA\Property(property="status", type="string", example="confirmé"),
      *             @OA\Property(property="payment_status", type="string", example="paid")
      *         )
      *     ),
@@ -222,7 +222,7 @@ class ReservationController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="reservation", type="object",
-     *                 @OA\Property(property="status", type="string", example="confirmed")
+     *                 @OA\Property(property="status", type="string", example="confirmé")
      *             ),
      *             @OA\Property(property="message", type="string", example="La réservation a été mise à jour avec succès")
      *         )
@@ -245,14 +245,14 @@ class ReservationController extends Controller
         }
 
         $validatedData = $request->validate([
-            'status' => 'required|in:confirmed,cancelled,pending', 
-            'payment_status' => 'nullable|in:pending,paid,failed',  
+            'status' => 'required|in:confirmé,annulé,en attente', 
+            'payment_status' => 'nullable|in:en attente,payé,échoué',  
         ]);
 
         $reservation = Reservation::findOrFail($id);
         $reservation->update($validatedData);
         
-        if ($validatedData['status'] == 'confirmed' && $reservation->user) {
+        if ($validatedData['status'] == 'confirmé' && $reservation->user) {
             $reservation->user->notify(new ReservationAcceptedNotification($reservation));
         }
         

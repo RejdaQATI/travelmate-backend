@@ -131,6 +131,7 @@ class TripController extends Controller
         $this->storeImage($request, $trip);
         return response()->json([
             'trip' => $trip,
+            'id' => $trip->id,
         ], 201);
     }
 
